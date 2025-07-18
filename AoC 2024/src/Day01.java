@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Day01 {
+
     public void getAnswer () {
 
         Path path = Path.of("input.txt");

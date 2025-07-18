@@ -3,4 +3,5 @@ public class Main {
         Day01 answer = new Day01();
         answer.getAnswer();
     }
+
 }
