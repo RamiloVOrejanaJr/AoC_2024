@@ -1,10 +1,7 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class Day01 {
 
@@ -12,6 +9,7 @@ public class Day01 {
     private final ArrayList<Integer> firstList;
     private final ArrayList<Integer> secondList;
 
+    @SuppressWarnings("unchecked")
     public Day01(String input) {
         List<Object> list = getInput(input);
         this.firstList = (ArrayList<Integer>) list.get(0);
@@ -59,7 +57,7 @@ public class Day01 {
         return Arrays.asList(firstList, secondList);
     }
 
-    public int getAnswer () {
+    public int getFirstAnswer () {
         int totalDistance = 0;
         for (int i = 0; i < this.firstList.size(); i++){
             //gets the numerical distance between each value pair
@@ -67,4 +65,14 @@ public class Day01 {
         }
         return totalDistance;
     }
+
+   public int getSecondAnswer(){
+        int similarityScore = 0;
+
+        for (Integer i: this.firstList){
+            similarityScore += i * Collections.frequency(this.firstList, i) * Collections.frequency(this.secondList, i);
+        }
+
+       return similarityScore;
+   }
 }
