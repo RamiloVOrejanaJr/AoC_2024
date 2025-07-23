@@ -5,7 +5,6 @@ import java.util.*;
 
 public class Day01 {
 
-    //private final String input;
     private final ArrayList<Integer> firstList;
     private final ArrayList<Integer> secondList;
 
