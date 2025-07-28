@@ -1,0 +1,80 @@
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.Scanner;
+import java.util.regex.Pattern;
+
+public class Day03 {
+
+    private final String input;
+    private final String formulas;
+
+    public Day03(String inputFilePath){
+        this.input = getInput(inputFilePath);
+        this.formulas = readFormulas();
+    }
+
+    public String getInput(String filePath){
+        //getting the input and storing it as a String
+        Path path = Path.of(filePath);
+        String content;
+
+        try {
+            content = Files.readString(path);
+        }
+        catch (IOException e){
+            System.out.print("Something went wrong when reading the file");
+            return null;
+        }
+        catch (Exception e){
+            System.out.print("Something went wrong");
+            return null;
+        }
+
+        return content;
+    }
+
+    public String getFormulas(){
+        return this.formulas;
+    }
+
+    public String readFormulas(){
+
+        String formulas =  this.input.replaceAll("[ \n]", "");
+        Scanner scanner = new Scanner(formulas);
+        StringBuilder formulasBuilder = new StringBuilder();
+
+        while (scanner.hasNext()){
+            String toAdd = scanner.findWithinHorizon("mul[(][0-9]+,[0-9]+[)]", 0);
+            //String toAdd = scanner.findWithinHorizon("mul[(][0-9]+,[0-9]+[)]|do\\(\\)|don't\\(\\)", 0);
+            System.out.println(toAdd);
+
+
+            if (toAdd == null){
+                break;
+            }
+            formulasBuilder.append(toAdd);
+        }
+
+        formulas = formulasBuilder.toString();
+        formulas = formulas.replaceAll("mul\\(", "");
+        formulas = formulas.replaceAll(",", " ");
+        formulas = formulas.replaceAll("\\)", " ");
+        return formulas;
+    }
+
+    public int computeFirstAnswer(){
+        int total = 0;
+
+        Scanner scanner = new Scanner(this.formulas);
+        System.out.println(this.formulas);
+
+        while (scanner.hasNextInt()){
+            int value1 = scanner.nextInt();
+            int value2 = scanner.nextInt();
+            total += (value1*value2);
+        }
+
+        return total;
+    }
+}

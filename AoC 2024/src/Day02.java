@@ -77,4 +77,29 @@ public class Day02 {
 
         return true;
     }
+
+    public boolean isDampenedSafe(ArrayList<Integer> nums){
+        int generalDiff = nums.getFirst()-nums.getLast();
+
+        for (int i = 1; i < nums.size(); i++){
+
+            int diff = Math.abs(nums.get(i-1) - nums.get(i));
+            boolean withinDistance = (diff >= 1 && diff <= 3);
+
+            boolean sameDirection = (generalDiff * (nums.get(i-1) - nums.get(i)) > 0);
+
+            if (!(withinDistance && sameDirection)){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public boolean isComputedSafe(ArrayList<Integer> nums){
+        //difference between each value is calculateed as abs(value1-value2)
+        //maximum possible difference is calculated as total of all differences
+        //check if maximum possible difference can be achieved by removing one number
+        return true;
+    }
 }
