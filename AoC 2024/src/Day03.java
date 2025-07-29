@@ -45,29 +45,53 @@ public class Day03 {
         StringBuilder formulasBuilder = new StringBuilder();
 
         while (scanner.hasNext()){
-            String toAdd = scanner.findWithinHorizon("mul[(][0-9]+,[0-9]+[)]", 0);
-            //String toAdd = scanner.findWithinHorizon("mul[(][0-9]+,[0-9]+[)]|do\\(\\)|don't\\(\\)", 0);
-            System.out.println(toAdd);
-
+            //String toAdd = scanner.findWithinHorizon("mul[(][0-9]+,[0-9]+[)]", 0);
+            String toAdd = scanner.findWithinHorizon("mul[(][0-9]+,[0-9]+[)]|do\\(\\)|don't\\(\\)", 0);
 
             if (toAdd == null){
                 break;
             }
+
+            toAdd += " ";
+
             formulasBuilder.append(toAdd);
         }
 
         formulas = formulasBuilder.toString();
-        formulas = formulas.replaceAll("mul\\(", "");
-        formulas = formulas.replaceAll(",", " ");
-        formulas = formulas.replaceAll("\\)", " ");
+        System.out.println(formulas);
+
         return formulas;
     }
 
     public int computeFirstAnswer(){
         int total = 0;
+        String formulas = this.formulas;
+        formulas = formulas.replaceAll("do\\(\\)|don't\\(\\)", "");
+        formulas = formulas.replaceAll("mul\\(", "");
+        formulas = formulas.replaceAll(",", " ");
+        formulas = formulas.replaceAll("\\)", " ");
 
-        Scanner scanner = new Scanner(this.formulas);
-        System.out.println(this.formulas);
+        Scanner scanner = new Scanner(formulas);
+        //System.out.println(formulas);
+
+        while (scanner.hasNextInt()){
+            int value1 = scanner.nextInt();
+            int value2 = scanner.nextInt();
+            total += (value1*value2);
+        }
+
+        return total;
+    }
+
+    public int computeSecondAnswer(){
+        int total = 0;
+        String formulas = this.formulas;
+        formulas = formulas.replaceAll("mul\\(", "");
+        formulas = formulas.replaceAll(",", " ");
+        formulas = formulas.replaceAll("\\)", " ");
+
+        Scanner scanner = new Scanner(formulas);
+        System.out.println(formulas);
 
         while (scanner.hasNextInt()){
             int value1 = scanner.nextInt();
