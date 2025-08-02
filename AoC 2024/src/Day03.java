@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class Day03 {
 
@@ -39,7 +38,6 @@ public class Day03 {
     }
 
     public String readFormulas(){
-
         String formulas =  this.input.replaceAll("[ \n]", "");
         Scanner scanner = new Scanner(formulas);
         StringBuilder formulasBuilder = new StringBuilder();
@@ -58,8 +56,6 @@ public class Day03 {
         }
 
         formulas = formulasBuilder.toString();
-        System.out.println(formulas);
-
         return formulas;
     }
 
@@ -72,7 +68,6 @@ public class Day03 {
         formulas = formulas.replaceAll("\\)", " ");
 
         Scanner scanner = new Scanner(formulas);
-        //System.out.println(formulas);
 
         while (scanner.hasNextInt()){
             int value1 = scanner.nextInt();
@@ -86,17 +81,32 @@ public class Day03 {
     public int computeSecondAnswer(){
         int total = 0;
         String formulas = this.formulas;
+
+        //cleaning up formulas to boolean for do() and dont(), and only the integers for the mul() formulas
+        formulas = formulas.replaceAll("do\\(\\)", "true");
+        formulas = formulas.replaceAll("don't\\(\\)", "false");
         formulas = formulas.replaceAll("mul\\(", "");
         formulas = formulas.replaceAll(",", " ");
         formulas = formulas.replaceAll("\\)", " ");
 
         Scanner scanner = new Scanner(formulas);
-        System.out.println(formulas);
+        boolean doFormula = true;
 
-        while (scanner.hasNextInt()){
-            int value1 = scanner.nextInt();
-            int value2 = scanner.nextInt();
-            total += (value1*value2);
+        while (scanner.hasNext()){
+            if (scanner.hasNextBoolean()){
+                doFormula = scanner.nextBoolean();
+                continue;
+            }
+
+            if (scanner.hasNextInt() && doFormula){
+                int value1 = scanner.nextInt();
+                int value2 = scanner.nextInt();
+                total += (value1*value2);
+            }
+
+            else {
+                scanner.next();
+            }
         }
 
         return total;
