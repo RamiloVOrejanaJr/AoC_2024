@@ -9,11 +9,11 @@ public class Day03 {
     private final String formulas;
 
     public Day03(String inputFilePath){
-        this.input = getInput(inputFilePath);
+        this.input = readInput(inputFilePath);
         this.formulas = readFormulas();
     }
 
-    public String getInput(String filePath){
+    public String readInput(String filePath){
         //getting the input and storing it as a String
         Path path = Path.of(filePath);
         String content;
